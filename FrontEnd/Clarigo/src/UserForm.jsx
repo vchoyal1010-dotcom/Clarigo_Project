@@ -219,15 +219,15 @@ const handleShowUsers = async () => {
             <option>Inactive</option>
           </select>
 
-
-        </form>
-          {editId ? (
+ {editId ? (
   <button type="submit" className="subutton">Update</button>
 ) : (
   <button type="submit" className="subutton">Submit</button>
 )}
 
           <button type="button" onClick={handleShowUsers}>Show</button>
+        </form>
+         
       </center>
           
 </div>
