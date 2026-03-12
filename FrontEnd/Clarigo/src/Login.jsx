@@ -1,10 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import UserForm from "./UserForm";
+import { Link } from "react-router-dom";
 function Login() {
 
   const [loginValue, setLoginValue] = useState("");
   const [password, setPassword] = useState("");
+  
 const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,9 +32,17 @@ const navigate = useNavigate();
         "http://localhost:6001/login/logink",
         data
       );
-    navigate("/form");
-      alert("Login successful");
+
+      //store data in session storage
+      const token =res.data.token;
       console.log(res.data);
+      const name = res.data.user.userName;
+
+      sessionStorage.setItem("token",token);
+      alert("Login successful");
+      navigate("/form", { state: { name } });
+
+
 
     } catch (error) {
 
@@ -61,11 +72,12 @@ const navigate = useNavigate();
           onChange={(e)=>setPassword(e.target.value)}
           required
         />
-
         <button type="submit">Login</button>
 
       </form>
-
+      <p>
+  Don't have an account? <Link to="/">Register</Link>
+</p>
     </div>
   );
 }

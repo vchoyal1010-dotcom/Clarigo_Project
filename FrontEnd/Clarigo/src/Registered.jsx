@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
 function Register() {
   const [formData, setFormData] = useState({
     userName: "",
@@ -8,6 +9,7 @@ function Register() {
     password: "",
   });
 
+  const navigate=useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -23,8 +25,9 @@ function Register() {
         "http://localhost:6001/login/registered",
         formData
       );
-
+            
       alert("User Registered Successfully!");
+
       console.log(response.data);
 
       setFormData({
@@ -32,6 +35,8 @@ function Register() {
         email: "",
         password: "",
       });
+      navigate("/login");
+
 
     } catch (error) {
       console.error(error);
@@ -74,6 +79,9 @@ function Register() {
 
         <button type="submit">Register</button>
       </form>
+        <p>
+        Already registered? <Link to="/login">Login</Link>
+      </p>
     </div>
   );
 }
